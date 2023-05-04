@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -u   # variable expansion fails, exit
+set -e   # command fails exit
+sh -n $0 # if not interactive, read commands but do not execute them
+
+die() {
+    echo "$@" >&2  # send the output to STDERR
+    exit 1
+}
+
+if [ $# -eq 0 ] ; then
+    brave-bin https://duckduckgo.com >/dev/null 2>&1 &
+else
+    paras=$(echo "$@" | tr ' ' '+')
+    brave-bin https://duckduckgo.com/?q=$paras >/dev/null 2>&1 &
+fi

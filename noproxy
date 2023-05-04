@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# run `. noproxy` on the command line to source this file to make export take effect in POSIX shell
+# or add `sh` to achieve the same objective.
+unset http_proxy && unset https_proxy
+
+dash

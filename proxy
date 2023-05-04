@@ -1,0 +1,8 @@
+#!/bin/sh
+
+
+# run `. proxy` on the command line to source this file to make export take effect in POSIX shell
+# or add `sh` to achieve the same objective.
+export http_proxy=http://127.0.0.1:7890 && export https_proxy=http://127.0.0.1:7890
+
+dash

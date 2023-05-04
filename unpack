@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -u   # variable expansion fails, exit
+set -e   # command fails exit
+sh -n $0 # if not interactive, read commands but do not execute them
+
+die() {
+    echo "$@" >&2  # send the output to STDERR
+    exit 1
+}
+
+[ $# -eq 1 ] || die "exactly one arg expected"
+
+file_extention=${1##*.} 
+
+if [ $file_extention = "zip" ]; then
+    echo "unpacking zip"
+    unzip "$1"
+elif [ $file_extention = "tar" ]; then
+    echo "unpacking tar"
+    tar -xf "$1" 
+elif [ $file_extention = "gz" ]; then
+    echo "unpacking gz"
+    gzip -d "$1"
+fi

@@ -1,0 +1,4 @@
+#! /bin/sh
+
+# du -a | awk '{print $2}'| fzf --preview 'bat {}' | xargs -r $EDITOR
+exa -la "$@" | awk '/^[.r]/ {print $7}' | fzf --preview 'bat {}' | xargs -r "$EDITOR"

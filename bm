@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# >/dev/null 2>&1 redirects the output of your program to /dev/null. Include both the Standard Error and Standard Out.
+
+file=$HOME/git/dotfiles/mds/bookmarks.md
+prompt=Bookmarks
+
+awk '{ print }' "$file" | dmenu -i -l 10 -p "$prompt" | awk '{ print $NF }' | xargs -r brave-bin >/dev/null 2>&1 & 
