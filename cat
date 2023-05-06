@@ -1,3 +1,3 @@
 #!/bin/sh
 
-lolcat "$@" -p 40.0 -i
+bat --theme "gruvbox-light" "$@" || lolcat "$@" -p 40.0 -i

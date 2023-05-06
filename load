@@ -5,13 +5,12 @@
 # TODO: add flexible node selection
 # TODO: make some hardcoded values as variable for future change, like directory name - .cofing/nodes
 # TODO: research on what's the benefit of using subshell in shell script
-# TODO: research on gentoo portage output style
 
 clone() {
     if [ "$*" = "clashfree" ]; then  # $* treat all arguments as a string rather than as an array like $a
-	git pull
+	    git pull
     else 
-	git clone https://github.com/anaer/sub.git
+	    git clone https://github.com/anaer/sub.git
     fi
 }
 
@@ -21,15 +20,16 @@ load_sub_retry() {
 	echo "\ntrying git clone $time time"
 	if clone; then
 	    while [ ! -f sub/clash.yaml ]; do # alternative: inotifywait, see references below
-		echo "\nwaiting for git writing files for 1 sec"; sleep 1
+		    echo "\nwaiting for git writing files for 1 sec"; sleep 1
 	    done
-	    echo "\n:) Done git cloning sub"
+	    echo "\n>>> Done git cloning sub"
+
         if [ "$(uname)" = "Darwin" ]; then
 	        sed -Ei "" '/RULE/d' sub/clash.yaml
         else
 	        sed -Ei '/RULE/d' sub/clash.yaml
         fi
-	    echo "\n:) Removed bad lines by sed"
+	    echo "\n>>> Removed bad lines by sed"
 	    return 0
 	else
 	    time=$((time + 1))
@@ -54,10 +54,10 @@ load_clashfree_retry() {
     return 1
 }
 
-echo "\ncd into $HOME/.config/nodes"; cd "$HOME"/.config/nodes || exit
+echo "\ncd into $HOME/.cache"; cd "$HOME"/.cache || exit
 echo "backup sub as sub.bak"; mv sub sub.bak
 
-echo "\n=> Start updating sub..."
+echo "\n>>> Start updating sub..."
 
 # the 2nd way to check if a command succeeded
 load_sub_retry
@@ -65,32 +65,31 @@ return_sub=$?
 if [ $return_sub -ne 0 ]; then
     echo "\n|| check folder" && ll
     mv sub.bak sub
-    echo "\n(::: Failure on sub, put it back"
-    echo "\n|| check folder" && ll
+    echo "\n!!! Failure on sub, put it back"
 else
     rm -rf sub.bak
-    echo "\n:::) Done updating sub, remove backup"
-    echo "\n || check folder" && ll
-    (
+    echo "\n>>> Done updating sub, removed backup"
+    
 	pkill clash
 	plug
-    )
+    echo "\n>>> clash has restarted"
 fi
 
-echo "\ncd into $HOME/.config/nodes/clashfree"
-cd "$HOME"/.config/nodes/clashfree || exit
+echo "\n|| check folder" && ll
+echo "\ncd into $HOME/.config/.cache"
+cd "$HOME"/.cache || exit
 
-echo "\n=> Start updating clashfree..."
+echo ">>> Start updating clashfree..."
 
 # the 3rd way to way if a command succeeded
 if load_clashfree_retry; then
-    echo "\n:::) Done updating clashfree"
+    echo "\n>>> Done updating clashfree"
 else
-    echo "\n(::: Failure on clashfree"
+    echo "\n!!! Failure on clashfree"
 fi
 
-echo "go back to $HOME/.config/nodes" && cd ..
-echo "\n|| check folder" && ll
+echo "go back to $HOME/.cache" && cd ..
+echo "|| check folder" && ll
 
 
 # References
