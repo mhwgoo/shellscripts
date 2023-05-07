@@ -38,15 +38,15 @@ load_sub_retry() {
 }
 
 echo "cd into $HOME/.cache"; cd "$HOME"/.cache || exit
-echo "backup sub as sub.bak"; mv sub sub.bak
+echo "backup sub as sub.bak"; mv sub sub.bak || exit
 echo ">>> Start updating sub..."
 # the 2nd way to check if a command succeeded
 load_sub_retry
 return_sub=$?
 if [ $return_sub -ne 0 ]; then
-    echo "\n|| check folder" && ll
+    echo "|| check folder" && ll
     mv sub.bak sub
-    echo "\n!!! Failure on sub, put it back"
+    echo "!!! Failure on sub, put it back"
 else
     rm -rf sub.bak
     echo ">>> Done updating sub, removed backup"
