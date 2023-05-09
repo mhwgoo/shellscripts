@@ -16,7 +16,7 @@ clone() {
 load_sub_retry() {
     time=1
     while [ "$time" -lt 4 ]; do
-	echo ">>>trying git clone $time time"
+	echo ">>> trying git clone $time time"
 	if clone; then
 	    while [ ! -f sub/clash.yaml ]; do # alternative: inotifywait, see references below
 		    echo ">>> waiting for git writing files for 1 sec"; sleep 1
@@ -43,7 +43,7 @@ echo ">>> Start updating sub..."
 # the 2nd way to check if a command succeeded
 load_sub_retry
 return_sub=$?
-if [ $return_sub -ne 0 ]; then
+if [ $return_sub -ne 0 ]; then   #$return_sub here shouldn't be double quoted, or error arised.
     echo "|| check folder" && ll
     mv sub.bak sub
     echo "!!! Failure on sub, put it back"
