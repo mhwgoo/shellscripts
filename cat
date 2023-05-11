@@ -1,3 +1,8 @@
 #!/bin/sh
 
-bat --theme "gruvbox-light" --decorations "never" "$@" || cat "$@"
+if [ -d "$1" ];then
+    echo "$1" is a directory
+    exit
+else
+    bat "$1" --theme "gruvbox-light" --decorations "never" || cat "$1"
+fi

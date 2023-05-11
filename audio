@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ $# -eq 0 ]; then
+    (pgrep mpd || mpd) && ncmpcpp
+else
+    (pgrep ncmpcpp > /dev/null || echo "ncmpcpp already exit before") && (pkill ncmpcpp && echo "ncmpcpp exit") 
+    pkill mpd && echo "mpd exit"
+fi
+
+
+

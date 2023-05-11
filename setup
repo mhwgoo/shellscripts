@@ -1,9 +1,6 @@
 #!/bin/sh
 
-cal
-date
-echo
-cat "$HOME"/.emacs.d/todo/a.todo
-echo
-(pgrep clash && echo -n "CLASH has already started. Skip. ") || (plug && echo -n "CLASH started. $(pgrep clash). ")
-swapesc; echo "ESC swapped."
+time
+awk '/^\[/ { print }' "$HOME"/.emacs.d/todo/a.todo
+pgrep clash > /dev/null || (plug && echo "CLASH started")
+swapesc
