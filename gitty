@@ -1,0 +1,39 @@
+#!/bin/sh
+
+if [ "$*" = "ll" ]; then
+    action=pull
+else
+    action=push
+fi
+
+remote() {
+    if [ "$action" = "pull" ]; then
+	git pull
+    else
+	git push
+    fi
+}
+
+remote_retry() {
+    time=1
+    while [ "$time" -lt 4 ]
+    do
+	echo ">>> trying git $action $time time"
+        if remote; then
+	    return 0
+	else
+	    time=$((time + 1))
+	fi
+    done
+    return 1
+}
+
+remote_retry
+result=$?
+
+if [ $result -ne 0 ]; then
+    echo "git $action finished" && git status
+else
+    echo "git $action failed"
+fi
+
