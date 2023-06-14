@@ -3,6 +3,9 @@
 if [ -d "$1" ];then
     echo "$1" is a directory
     exit
+elif ! [ -f "$1" ]; then
+    echo "$1": No such file
+    exit
 else
-    bat "$1" --theme "gruvbox-light" --decorations "never" || cat "$1"
+    bat "$1" --theme "gruvbox-dark" --decorations "never" || cat "$1"
 fi

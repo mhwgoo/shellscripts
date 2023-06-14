@@ -5,6 +5,7 @@
 # TODO: add flexible node selection
 # TODO: make some hardcoded values as variable for future change, like directory name - .cofing/nodes
 # TODO: research on what's the benefit of using subshell in shell script
+
 clone() {
     if [ "$*" = "clashfree" ]; then  # $* treat all arguments as a string rather than as an array like $a
 	    git pull
@@ -40,11 +41,9 @@ load_sub_retry() {
 echo "cd into $HOME/.cache"; cd "$HOME"/.cache || exit
 echo "backup sub as sub.bak"; mv sub sub.bak || exit
 echo ">>> Start updating sub..."
-# the 2nd way to check if a command succeeded
 load_sub_retry
 return_sub=$?
-if [ $return_sub -ne 0 ]; then   #$return_sub here shouldn't be double quoted, or error arised.
-    echo "|| check folder" && ll
+if [ $return_sub -ne 0 ]; then
     mv sub.bak sub
     echo "!!! Failure on sub, put it back"
 else
@@ -54,36 +53,6 @@ else
 	plug
     echo ">>> clash has restarted"
 fi
-echo "|| check folder" && ll
-
-load_clashfree_retry() {
-    time=1
-    while [ "$time" -lt 4 ]
-    do
-	echo ">>> trying git pull $time time"
-        clone clashfree
-	# the 1st way to check of a command succeeded, but not suggested
-	if [ $? -eq 0 ]; then
-	    return 0
-	else
-	    time=$((time + 1))
-	fi
-    done
-    return 1
-}
-
-# echo "cd into $HOME/.config/.cache"
-# cd "$HOME"/.cache || exit
-# echo ">>> Start updating clashfree..."
-# the 3rd way to way if a command succeeded
-# if load_clashfree_retry; then
-#     echo "\n>>> Done updating clashfree"
-# else
-#     echo "\n!!! Failure on clashfree"
-# fi
-# echo "go back to $HOME/.cache" && cd ..
-# echo "|| check folder" && ll
-
 
 # References
 # https://unix.stackexchange.com/questions/309339/how-to-exit-a-shell-script-if-one-part-of-it-fails

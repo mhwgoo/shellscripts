@@ -1,3 +1,3 @@
 #!/bin/sh
 
-doas hwclock --verbose | awk '/Time read from/ { print }' | cowsay
+doas hwclock --verbose | awk '/Time read from/ { print }'

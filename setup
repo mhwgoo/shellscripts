@@ -1,6 +1,15 @@
 #!/bin/sh
 
+echo Hello "$(id -un)"!
 time
-awk '/^\[/ { print }' "$HOME"/.emacs.d/todo/a.todo
-pgrep clash > /dev/null || (plug && echo "CLASH started")
+honey
+printf "\n"
+awk '/^↓ /{ print }' /home/kate/.emacs.d/todo/a.todo
+printf "\n"
+awk '/^↑ /{ print }' /home/kate/.emacs.d/todo/a.todo
+printf "\n"
+awk '/^→ / { print }' /home/kate/.emacs.d/todo/a.todo
+printf "\n"
+awk '/^# / { print }' /home/kate/.emacs.d/todo/a.todo
+pgrep clash > /dev/null || (plug && echo CLASH started at $(pgrep clash))
 swapesc

@@ -1,9 +1,11 @@
 #!/bin/sh
 
-if [ "$1" = "ll" ]; then
+if [ "$1" = "pull" ]; then
     action=pull
 elif [ "$1" = "clone" ]; then
     action=clone
+elif [ "$1" = "diff" ]; then
+    action=diff
 else
     action=push
 fi
@@ -12,7 +14,9 @@ remote() {
     if [ "$action" = "pull" ]; then
 	git pull
     elif [ "$action" = "clone" ]; then
-	git clone "$2"
+	git clone --depth 1 "$2"
+    elif [ "$action" = "diff" ]; then
+	git diff --word-diff
     else
 	git push
     fi
