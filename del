@@ -6,6 +6,6 @@ if [ "${OS}" = "Linux" ]; then
     set -- .w3m .npm .ipython .sqlite_history .python_history .bash_history Desktop Downloads
         for i in "$@"; do rm -rf "${i}"; done
 elif [ "${OS}" = "Darwin" ]; then
-    set -- .viminfo .ipython .sqlite_history .python_history .bash_history .DS_Store
+    set -- .viminfo .npm .ipython .sqlite_history .python_history .bash_history .DS_Store
     for i in "$@"; do rm -rf "${i}"; done
 fi

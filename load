@@ -39,7 +39,10 @@ load_sub_retry() {
 }
 
 echo "cd into $HOME/.cache"; cd "$HOME"/.cache || exit
-echo "backup sub as sub.bak"; mv sub sub.bak || exit
+if [ ! -d sub.bak ]; then
+    echo "backup sub as sub.bak"; mv sub sub.bak || exit
+fi
+
 echo ">>> Start updating sub..."
 load_sub_retry
 return_sub=$?

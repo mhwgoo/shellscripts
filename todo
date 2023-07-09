@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -f "$HOME/.emacs.d/todo/todo.todo" ]; then
+    cat $HOME/.emacs.d/todo/todo.todo
+else
+    echo "No todos.\n"
+fi

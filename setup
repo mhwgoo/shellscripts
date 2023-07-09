@@ -1,15 +1,16 @@
 #!/bin/sh
 
-echo Hello "$(id -un)"!
-time
-honey
-printf "\n"
-awk '/^↓ /{ print }' /home/kate/.emacs.d/todo/a.todo
-printf "\n"
-awk '/^↑ /{ print }' /home/kate/.emacs.d/todo/a.todo
-printf "\n"
-awk '/^→ / { print }' /home/kate/.emacs.d/todo/a.todo
-printf "\n"
-awk '/^# / { print }' /home/kate/.emacs.d/todo/a.todo
-pgrep clash > /dev/null || (plug && echo CLASH started at $(pgrep clash))
-swapesc
+if [ "$(uname)" = "Darwin" ]; then
+    echo Hello "$(id -un)", you are @mac
+    date
+else
+    echo Hello "$(id -un)", you are @gentoo
+    time
+    honey
+    swapesc
+fi
+
+awk '/^---/{ print }' $HOME/.emacs.d/todo/todo.todo
+awk '/^+++/{ print }' $HOME/.emacs.d/todo/todo.todo
+awk '/^!!!/ { print }' $HOME/.emacs.d/todo/todo.todo
+awk '/^###/ { print }' $HOME/.emacs.d/todo/todo.todo
