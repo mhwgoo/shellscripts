@@ -10,7 +10,4 @@ else
     swapesc
 fi
 
-awk '/^---/{ print }' $HOME/.emacs.d/todo/todo.todo
-awk '/^+++/{ print }' $HOME/.emacs.d/todo/todo.todo
-awk '/^!!!/ { print }' $HOME/.emacs.d/todo/todo.todo
-awk '/^###/ { print }' $HOME/.emacs.d/todo/todo.todo
+todo
